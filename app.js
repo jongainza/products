@@ -21,22 +21,23 @@ const getProducts = async () => {
 const loadProducts = (data) => {
   const products = data
     .map((item) => {
-      const description = item.fields;
-      return `<a href="product.html" class="single-product">
+      const { id, fields } = item;
+      const { name, price, image } = fields;
+
+      return `<a href="product.html?id=${id}" class="single-product">
              <img
-               src="${description.image[0].url}"
-               alt="${description.name}"
+               src="${image[0].url}"
+               alt="${name}"
                class="single-product-img img"
              />
              <footer>
-               <h5 class="name">${description.name}</h5>
-               <span class="price">$${description.price}</span>
+               <h5 class="name">${name}</h5>
+               <span class="price">$${price / 100}</span>
              </footer>
            </a>`;
     })
     .join("");
   productsContainer.innerHTML = products;
-
   productsCenter.innerHTML = "";
   productsCenter.appendChild(productsContainer);
 };
