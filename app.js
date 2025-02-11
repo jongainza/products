@@ -9,16 +9,14 @@ const getProducts = async () => {
 
   try {
     const response = await fetch(url);
-    console.log(response);
 
     const data = await response.json();
 
-    loadProducts(data);
+    return data;
   } catch (error) {
     productsCenter.innerHTML = `<p class="error">there was an error</p>`;
   }
 };
-getProducts();
 
 const loadProducts = (data) => {
   const products = data
@@ -38,8 +36,14 @@ const loadProducts = (data) => {
     })
     .join("");
   productsContainer.innerHTML = products;
-  console.log(productsContainer);
 
   productsCenter.innerHTML = "";
   productsCenter.appendChild(productsContainer);
 };
+
+const start = async () => {
+  const data = await getProducts();
+  loadProducts(data);
+};
+
+start();
